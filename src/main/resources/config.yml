@@ -1,0 +1,21 @@
+# Welcome
+# Plugin made by Wp Voxel.
+
+# Permissions
+# encantar.use = usado para ter acesso ao comando /encantar
+# reciclar.use = usado para ter acesso ao comando /reciclar
+# rune.admin = usado para ter acesso ao comando /runa
+# iencantar.admin = usado para ter acesso ao comando /iencantar reload <= apenas para staff
+
+FraskCost:
+  simpleFraskCost: 1500
+  normalFraskCost: 3000
+  advancedFraskCost: 5000
+BookCost:
+  eBookSimpleCost: 1500
+  eBookNormalCost: 2000
+  eBookAdvancedCost: 3500
+BlockedItemColors:
+  - DARK_RED
+  - DARK_PURPLE
+  - GREEN
