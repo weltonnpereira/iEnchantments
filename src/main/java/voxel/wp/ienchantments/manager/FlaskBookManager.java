@@ -24,6 +24,45 @@ public class FlaskBookManager {
         this.plManager = plManager;
     }
 
+    /**
+     * Retorna a quantidade de XP necessária para passar para o próximo nível.
+     */
+    private int getExperienceAtLevel(int level) {
+        if (level >= 30) {
+            return 112 + (level - 30) * 9;
+        } else if (level >= 15) {
+            return 37 + (level - 15) * 5;
+        } else {
+            return 7 + level * 2;
+        }
+    }
+
+    /**
+     * Deduz o XP e recalcula perfeitamente o level e a barra visual do cliente.
+     */
+    public void deductPlayerExperience(Player player, int cost) {
+        int currentTotalXp = player.getTotalExperience() - cost;
+        if (currentTotalXp < 0) currentTotalXp = 0;
+
+        player.setTotalExperience(0);
+        player.setLevel(0);
+        player.setExp(0f);
+
+        player.setTotalExperience(currentTotalXp);
+
+        int level = 0;
+        int xpForLevel = getExperienceAtLevel(level);
+
+        while (currentTotalXp >= xpForLevel) {
+            currentTotalXp -= xpForLevel;
+            level++;
+            xpForLevel = getExperienceAtLevel(level);
+        }
+
+        player.setLevel(level);
+        player.setExp((float) currentTotalXp / (float) xpForLevel);
+    }
+
     public void handleTotalXpBottleWithdraw(Player player, ItemStack item) {
         if (player.getInventory().firstEmpty() == -1) {
             player.sendMessage(ChatColor.RED + "Your inventory is full. Clear space before acquiring your flask.");
@@ -57,8 +96,9 @@ public class FlaskBookManager {
             return;
         }
 
-        player.setTotalExperience(xp - cost);
-        player.setLevel(0);
+//        player.setTotalExperience(xp - cost);
+//        player.setLevel(0);
+        deductPlayerExperience(player, cost);
 
         ItemStack xpBottle = createCustomXpBottle(flaskType, cost);
         player.getInventory().addItem(xpBottle);
@@ -82,8 +122,9 @@ public class FlaskBookManager {
             return;
         }
 
-        player.setTotalExperience(xp - cost);
-        player.setLevel(0);
+//        player.setTotalExperience(xp - cost);
+//        player.setLevel(0);
+        deductPlayerExperience(player, cost);
 
         ItemStack customBook = createCustomBook(eBookType);
         player.getInventory().addItem(customBook);
@@ -92,7 +133,8 @@ public class FlaskBookManager {
         updateXpTotal(player);
         player.updateInventory();
 
-        player.sendMessage(ChatColor.GREEN + "You purchased an " + ChatColor.YELLOW + "Enchanted Book" + ChatColor.GREEN + " of type " + ChatColor.YELLOW + eBookType);
+        player.sendMessage(ChatColor.GREEN + "You purchased " + ChatColor.YELLOW + eBookType +
+                ChatColor.LIGHT_PURPLE + " Enchanted Book.");
     }
 
     public void updateMinecartItem(Player player) {
