@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="iEncantamentos">
-    <output-path>$USER_HOME$/Desktop/All/Insane Testes/plugins</output-path>
-    <root id="archive" name="iEncantamentos.jar">
-      <element id="module-output" name="iEncantamentos" />
-    </root>
-  </artifact>
-</component>

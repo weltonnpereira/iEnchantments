@@ -3,16 +3,16 @@ version: '2.0'
 main: 'voxel.wp.ienchantments.Main'
 
 commands:
-  encantar:
+  enchant:
     aliases: [ie]
-    permission: encantar.use
-  reciclar:
+    permission: enchant.use
+  recycle:
     aliases: [ir]
-    permission: reciclar.use
-  runa:
+    permission: recycle.use
+  rune:
     aliases: [rn]
     permission: rune.admin
-  iencantar:
-    permission: iencantar.admin
+  ienchant:
+    permission: ienchant.admin
   reload:
-    permission: iencantar.admin
+    permission: ienchant.admin
