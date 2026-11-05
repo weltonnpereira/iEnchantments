@@ -58,10 +58,7 @@ public class EnchantCommands implements Listener, CommandExecutor {
             if(cmd.getName().equalsIgnoreCase(cmd4)) {
                 if(args.length >= 1 && args[0].equalsIgnoreCase(cmd5)) {
                     if(player.isOp() || player.hasPermission("ienchant.admin")) {
-                        Main plugin = plManager.getPlugin();
-                        plugin.reloadConfig();
-                        pluginManager.disablePlugin(plugin);
-                        pluginManager.enablePlugin(plugin);
+                        plManager.getPlugin().reloadConfig();
                         player.sendMessage(ChatColor.DARK_PURPLE + "iEnchantments " + ChatColor.GREEN + "was reloaded.");
                         return true;
                     }
