@@ -1,6 +1,9 @@
 name: 'iEnchantments'
 version: '2.0'
 main: 'voxel.wp.ienchantments.Main'
+api-version: 1.8
+author: WpVoxel
+license: GPL-3.0
 
 commands:
   enchant:
