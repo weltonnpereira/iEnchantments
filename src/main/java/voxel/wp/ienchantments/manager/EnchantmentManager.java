@@ -206,7 +206,7 @@ public class EnchantmentManager {
     public boolean applyBookToItem(Player player, ItemStack targetItem, ItemStack bookItem) {
         if (!isValidTargetItem(targetItem, bookItem)) {
             player.sendMessage(ChatColor.RED + "This enchantment cannot be applied to this item.");
-            player.playSound(player.getLocation(), Sound.GHAST_FIREBALL, 1.0f, 1.0f);
+            player.playSound(player.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1.0f, 1.0f);
             return false;
         }
 
@@ -222,11 +222,11 @@ public class EnchantmentManager {
                 targetItem.addUnsafeEnchantment(entry.getKey(), entry.getValue());
             }
             player.sendMessage(ChatColor.GREEN + "Enchantment successfully applied!");
-            player.playSound(player.getLocation(), Sound.BLAZE_BREATH, 1.0f, 1.0f);
+            player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 1.0f, 1.0f);
         } else {
             // Falha na aplicação
             player.sendMessage(ChatColor.RED + "The enchantment failed to apply!");
-            player.playSound(player.getLocation(), Sound.ITEM_BREAK, 1.0f, 1.0f);
+            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
         }
 
         return true;

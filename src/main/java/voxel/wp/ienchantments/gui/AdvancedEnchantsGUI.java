@@ -10,7 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
+import voxel.wp.ienchantments.holder.AdvancedEnchantHolder;
 import voxel.wp.ienchantments.manager.PlManager;
 
 public class AdvancedEnchantsGUI implements Listener {
@@ -24,7 +24,7 @@ public class AdvancedEnchantsGUI implements Listener {
     public static final String GUI_TITLE = ChatColor.DARK_PURPLE + "Enchantments - Advanced Book";
 
     public void AdvancedEnchantInventory(Player player) {
-        Inventory i = plManager.getPlugin().getServer().createInventory(null, 54, GUI_TITLE);
+        Inventory i = plManager.getPlugin().getServer().createInventory(new AdvancedEnchantHolder(), 54, GUI_TITLE);
 
         // Advanced Enchantment Items
         i.setItem(10, createEnchantedBookItem(Enchantment.PROTECTION_ENVIRONMENTAL, 5));

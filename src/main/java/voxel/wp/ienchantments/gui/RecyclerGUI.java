@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import voxel.wp.ienchantments.holder.RecyclerHolder;
 import voxel.wp.ienchantments.manager.PlManager;
 
 import java.util.Arrays;
@@ -29,10 +30,10 @@ public class RecyclerGUI implements Listener {
     public static final String acceptRecycler = "Accept";
 
     public void openRecyclerInventory(Player player) {
-        Inventory i = plManager.getPlugin().getServer().createInventory(null, 54, GUI_TITLE);
+        Inventory i = plManager.getPlugin().getServer().createInventory(new RecyclerHolder(), 54, GUI_TITLE);
 
         short black = 15;
-        ItemStack blackPane = createItem(Material.STAINED_GLASS_PANE, black, "", null);
+        ItemStack blackPane = createItem(Material.BLACK_STAINED_GLASS_PANE, black, "", null);
         i.setItem(45, blackPane);
         i.setItem(47, blackPane);
         i.setItem(51, blackPane);
@@ -41,7 +42,7 @@ public class RecyclerGUI implements Listener {
         // Botão para Adicionar Livros
         short purple = 10;
         ItemStack putAllBooks = createItem(
-                Material.STAINED_GLASS_PANE,
+                Material.PURPLE_STAINED_GLASS_PANE,
                 purple,
                 ChatColor.AQUA + addAllToRecycler,
                 Arrays.asList(
@@ -61,7 +62,7 @@ public class RecyclerGUI implements Listener {
         // Botão Negar / Cancelar (Vidro Vermelho)
         short red = 14;
         ItemStack deny = createItem(
-                Material.STAINED_GLASS_PANE,
+                Material.RED_STAINED_GLASS_PANE,
                 red,
                 ChatColor.RED + cancelRecycler,
                 Arrays.asList(ChatColor.GRAY + "Click to cancel recycling!")
@@ -85,7 +86,7 @@ public class RecyclerGUI implements Listener {
 
         short green = 5;
         ItemStack accept = createItem(
-                Material.STAINED_GLASS_PANE,
+                Material.GREEN_STAINED_GLASS_PANE,
                 green,
                 ChatColor.GREEN + acceptRecycler,
                 Arrays.asList(

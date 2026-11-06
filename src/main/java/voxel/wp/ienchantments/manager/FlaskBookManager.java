@@ -166,7 +166,7 @@ public class FlaskBookManager {
             ItemStack myxp = inventory.getItem(29);
             if (myxp != null) {
                 if (xp > 0) {
-                    ItemStack xpBottle = new ItemStack(Material.EXP_BOTTLE);
+                    ItemStack xpBottle = new ItemStack(Material.EXPERIENCE_BOTTLE);
                     ItemMeta meta = xpBottle.getItemMeta();
                     meta.setDisplayName(ChatColor.YELLOW + "Experience Flask");
                     List<String> lore = new ArrayList<>();
@@ -195,7 +195,7 @@ public class FlaskBookManager {
     }
 
     public boolean customXpBottle(String nameBottle, ItemStack item) {
-        if (item.getType() == Material.EXP_BOTTLE && item.hasItemMeta()) {
+        if (item.getType() == Material.EXPERIENCE_BOTTLE && item.hasItemMeta()) {
             ItemMeta meta = item.getItemMeta();
             return meta.hasDisplayName() && meta.getDisplayName().equals(ChatColor.YELLOW + nameBottle);
         }
@@ -225,7 +225,7 @@ public class FlaskBookManager {
     }
 
     public ItemStack createCustomXpBottle(String nameXpBottle, int xpAmount) {
-        ItemStack xpBottle = new ItemStack(Material.EXP_BOTTLE, 1);
+        ItemStack xpBottle = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
         ItemMeta meta = xpBottle.getItemMeta();
         meta.setDisplayName(ChatColor.YELLOW + nameXpBottle);
         List<String> lore = new ArrayList<>();
@@ -292,7 +292,7 @@ public class FlaskBookManager {
         ItemStack existingFrask = null;
 
         for (ItemStack stack : inventoryContents) {
-            if(stack != null && stack.getType() == Material.EXP_BOTTLE) {
+            if(stack != null && stack.getType() == Material.EXPERIENCE_BOTTLE) {
                 ItemMeta stackMeta = stack.getItemMeta();
                 if (stackMeta != null && stackMeta.hasDisplayName() &&
                         stackMeta.getDisplayName().contains(expectedName)) {

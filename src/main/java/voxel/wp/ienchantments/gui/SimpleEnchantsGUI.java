@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import voxel.wp.ienchantments.holder.SimpleEnchantHolder;
 import voxel.wp.ienchantments.manager.PlManager;
 
 public class SimpleEnchantsGUI implements Listener {
@@ -22,7 +23,7 @@ public class SimpleEnchantsGUI implements Listener {
     public static final String GUI_TITLE = ChatColor.DARK_PURPLE + "Enchantments - Simple Book";
 
     public void SimpleEnchantInventory(Player player) {
-        Inventory i = plManager.getPlugin().getServer().createInventory(null, 54, GUI_TITLE);
+        Inventory i = plManager.getPlugin().getServer().createInventory(new SimpleEnchantHolder(), 54, GUI_TITLE);
 
         int level1 = 1;
         int level2 = 2;

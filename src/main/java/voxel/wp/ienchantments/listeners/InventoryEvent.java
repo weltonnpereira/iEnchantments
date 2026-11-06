@@ -14,6 +14,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import voxel.wp.ienchantments.gui.*;
 
+import voxel.wp.ienchantments.holder.EnchantGUIHolder;
+import voxel.wp.ienchantments.holder.MainHolder;
+import voxel.wp.ienchantments.holder.RecyclerHolder;
 import voxel.wp.ienchantments.manager.EnchantmentManager;
 import voxel.wp.ienchantments.manager.PlManager;
 import voxel.wp.ienchantments.manager.RecyclerManager;
@@ -36,11 +39,11 @@ public class InventoryEvent implements Listener {
         if (!(event.getWhoClicked() instanceof Player)) return;
 
         Player player = (Player) event.getWhoClicked();
+        Inventory inventory = event.getInventory();
         Inventory open = player.getOpenInventory().getTopInventory();
 
         if (open == null) return;
 
-        String title = open.getTitle();
         ItemStack clickedItem = event.getCurrentItem();
         ItemStack cursorItem = event.getCursor();
 
@@ -78,7 +81,7 @@ public class InventoryEvent implements Listener {
 
             if (!runeMgr.canExtractEnchantments(clickedItem)) {
                 player.sendMessage(ChatColor.RED + "You cannot extract from this item.");
-                player.playSound(player.getLocation(), Sound.GHAST_FIREBALL, 1.0f, 1.0f);
+                player.playSound(player.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1.0f, 1.0f);
                 return;
             }
 
@@ -87,7 +90,7 @@ public class InventoryEvent implements Listener {
 
             if (emptySlots < numEnchantments) {
                 player.sendMessage(ChatColor.RED + "You do not have enough space for the extracted books.");
-                player.playSound(player.getLocation(), Sound.GHAST_FIREBALL, 1.0f, 1.0f);
+                player.playSound(player.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1.0f, 1.0f);
                 return;
             }
 
@@ -106,15 +109,12 @@ public class InventoryEvent implements Listener {
             runeMgr.removeEnchantments(clickedItem);
 
             player.sendMessage(ChatColor.GREEN + "Enchantments successfully extracted!");
-            player.playSound(player.getLocation(), Sound.WITHER_IDLE, 1.0f, 1.0f);
+            player.playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1.0f, 1.0f);
             return;
         }
 
         // Guis de visualização
-        if (title.equals(SimpleEnchantsGUI.GUI_TITLE) ||
-                title.equals(NormalEnchantsGUI.GUI_TITLE) ||
-                title.equals(AdvancedEnchantsGUI.GUI_TITLE)) {
-
+        if (inventory.getHolder() instanceof EnchantGUIHolder) {
             event.setCancelled(true);
 
             if (clickedItem == null || !clickedItem.hasItemMeta()) return;
@@ -129,7 +129,7 @@ public class InventoryEvent implements Listener {
             return;
         }
 
-        if (title.equals(RecyclerGUI.GUI_TITLE)) {
+        if (inventory.getHolder() instanceof RecyclerHolder) {
             RecyclerManager recyclerMgr = plManager.getRecyclerManager();
             Inventory topInventory = player.getOpenInventory().getTopInventory();
             Inventory clickedInventory = event.getClickedInventory();
@@ -161,7 +161,7 @@ public class InventoryEvent implements Listener {
                         recyclerMgr.updateRecyclerBottle(player, 0);
                         recyclerMgr.clearRecyclerBooks(open);
                         player.closeInventory();
-                        player.playSound(player.getLocation(), Sound.VILLAGER_IDLE, 1.0f, 1.0f);
+                        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                         return;
 
                     // Accept
@@ -172,7 +172,7 @@ public class InventoryEvent implements Listener {
                             recyclerMgr.clearRecyclerBooks(open);
                             player.closeInventory();
                             player.sendMessage(ChatColor.GREEN + "You gained " + ChatColor.YELLOW + plManager.formatExp(totalValue) + " XP " + ChatColor.GREEN + "by recycling your enchanted books!");
-                            player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0f, 1.0f);
+                            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
                         }
                         return;
                 }
@@ -191,7 +191,7 @@ public class InventoryEvent implements Listener {
 
                         if (firstEmptySlot == -1 || firstEmptySlot >= 45) {
                             player.sendMessage(ChatColor.RED + "The recycler inventory is full.");
-                            player.playSound(player.getLocation(), Sound.GHAST_FIREBALL, 1.0f, 1.0f);
+                            player.playSound(player.getLocation(), Sound.ENTITY_GHAST_SHOOT, 1.0f, 1.0f);
                             return;
                         }
 
@@ -210,7 +210,7 @@ public class InventoryEvent implements Listener {
                         currentTotal += recyclerMgr.calculateRecycleValue(bookType);
                         recyclerMgr.updateRecyclerBottle(player, currentTotal);
 
-                        player.playSound(player.getLocation(), Sound.ITEM_PICKUP, 0.5f, 1.0f);
+                        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 1.0f);
                     }
                 }
             }
@@ -218,7 +218,7 @@ public class InventoryEvent implements Listener {
         }
 
         // Sorcerer GUI
-        if (!title.equals(MainGUI.GUI_TITLE)) return;
+        if (!(inventory.getHolder() instanceof MainHolder)) return;
 
         event.setCancelled(true);
 
@@ -238,7 +238,7 @@ public class InventoryEvent implements Listener {
         }
 
         // Sistema de Compra de Frascos de Experiência (Simples, Normal, Avançado)
-        if (clickedItem.getType() == Material.EXP_BOTTLE && meta.hasDisplayName()) {
+        if (clickedItem.getType() == Material.EXPERIENCE_BOTTLE && meta.hasDisplayName()) {
             String displayName = meta.getDisplayName();
 
             if (displayName.equals(ChatColor.YELLOW + advancedFlaskType)) {
@@ -281,7 +281,7 @@ public class InventoryEvent implements Listener {
         Player player = (Player) event.getPlayer();
         Inventory inventory = event.getInventory();
 
-        if (inventory.getTitle().equals(RecyclerGUI.GUI_TITLE)) {
+        if (inventory.getHolder() instanceof RecyclerHolder) {
             RecyclerManager recyclerMgr = plManager.getRecyclerManager();
             recyclerMgr.returnBooksToPlayer(player, inventory);
             recyclerMgr.clearRecyclerBooks(inventory);

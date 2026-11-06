@@ -58,7 +58,7 @@ public class RecyclerManager {
                 recyclerBottle.setType(Material.GLASS_BOTTLE);
                 meta.setLore(null);
             } else {
-                recyclerBottle.setType(Material.EXP_BOTTLE);
+                recyclerBottle.setType(Material.EXPERIENCE_BOTTLE);
                 List<String> lore = meta.getLore();
                 if (lore != null) {
                     String lineTotalValue = ChatColor.WHITE + "Total value: ";
@@ -91,7 +91,7 @@ public class RecyclerManager {
 
         if (recyclerInventory != null) {
             ItemStack recyclerBottle = recyclerInventory.getItem(flaskPosition);
-            if (recyclerBottle != null && recyclerBottle.getType() == Material.EXP_BOTTLE) {
+            if (recyclerBottle != null && recyclerBottle.getType() == Material.EXPERIENCE_BOTTLE) {
                 ItemMeta meta = recyclerBottle.getItemMeta();
                 if (meta == null || !meta.hasLore()) return 0;
 

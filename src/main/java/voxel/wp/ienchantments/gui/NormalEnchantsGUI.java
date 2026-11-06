@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import voxel.wp.ienchantments.holder.NormalEnchantHolder;
 import voxel.wp.ienchantments.manager.PlManager;
 
 public class NormalEnchantsGUI implements Listener {
@@ -22,7 +23,7 @@ public class NormalEnchantsGUI implements Listener {
     public static final String GUI_TITLE = ChatColor.DARK_PURPLE + "Enchantments - Normal Book";
 
     public void NormalEnchantInventory(Player player) {
-        Inventory i = plManager.getPlugin().getServer().createInventory(null, 54, GUI_TITLE);
+        Inventory i = plManager.getPlugin().getServer().createInventory(new NormalEnchantHolder(), 54, GUI_TITLE);
 
         // Normal Enchantment Items
         i.setItem(10, createEnchantedBookItem(Enchantment.PROTECTION_ENVIRONMENTAL, 3));

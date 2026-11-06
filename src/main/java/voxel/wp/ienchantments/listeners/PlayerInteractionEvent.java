@@ -74,7 +74,7 @@ public class PlayerInteractionEvent implements Listener {
 
                 player.giveExp(xpAmount);
                 player.sendMessage(ChatColor.GREEN + "You consumed a " + meta.getDisplayName() + ChatColor.GREEN + " with " + ChatColor.YELLOW + flaskMgr.formatExp(xpAmount) + " XP");
-                player.playSound(player.getLocation(), Sound.VILLAGER_YES, 1.0f, 1.0f); // Nota: ajuste para player.getLocation() conforme seu import
+                player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_YES, 1.0f, 1.0f); // Nota: ajuste para player.getLocation() conforme seu import
             }
             return;
         }
@@ -92,7 +92,7 @@ public class PlayerInteractionEvent implements Listener {
             if (plManager.hasInventorySpaceOrStack(player, item)) {
                 plManager.consumeItemInHand(player, item);
                 plManager.getEnchantmentManager().createEnchantedBook(player, bookType);
-                player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0f, 1.0f);
+                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
             } else {
                 player.sendMessage(ChatColor.RED + "Your inventory is full. Clear space before using your book.");
             }

@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import voxel.wp.ienchantments.holder.MainHolder;
 import voxel.wp.ienchantments.manager.PlManager;
 
 import java.util.Arrays;
@@ -58,7 +59,7 @@ public class MainGUI {
     }
 
     public void openEnchantInventory(Player player) {
-        Inventory inv = Bukkit.createInventory(null, 45, GUI_TITLE);
+        Inventory inv = Bukkit.createInventory(new MainHolder(), 45, GUI_TITLE);
         int totalXp = player.getTotalExperience();
 
         inv.setItem(13, createItem(
@@ -87,7 +88,7 @@ public class MainGUI {
         String formattedCost = plManager.formatExp(cost);
 
         ItemStack item = createItem(
-                Material.EXP_BOTTLE,
+                Material.EXPERIENCE_BOTTLE,
                 ChatColor.YELLOW + name,
                 Arrays.asList(
                         ChatColor.WHITE + "Cost: " + ChatColor.GREEN + formattedCost + " XP",
@@ -104,7 +105,7 @@ public class MainGUI {
 
         if (playerXp > 0) {
             ItemStack item = createItem(
-                    Material.EXP_BOTTLE,
+                    Material.EXPERIENCE_BOTTLE,
                     ChatColor.YELLOW + name,
                     Arrays.asList(
                             ChatColor.WHITE + "Cost: " + ChatColor.GREEN + formattedXp + " XP",
