@@ -1,6 +1,6 @@
 # IEnchants ⚡
 
-[![Spigot Version](https://img.shields.io/badge/Spigot-1.8%20-orange.svg)](https://www.spigotmc.org/)
+[![Spigot Version](https://img.shields.io/badge/Spigot-1.21%20-orange.svg)](https://www.spigotmc.org/)
 [![License](https://img.shields.io/badge/License-Proprietary-blue.svg)](https://www.spigotmc.org/resources/ienchantments.140265/)
 [![Architecture](https://img.shields.io/badge/Architecture-Modular-success.svg)]()
 
